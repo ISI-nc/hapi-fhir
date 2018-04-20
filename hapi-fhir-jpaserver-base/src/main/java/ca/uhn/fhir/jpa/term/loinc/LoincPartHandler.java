@@ -29,6 +29,7 @@ import org.hl7.fhir.r4.model.ValueSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.trim;
 
 public class LoincPartHandler implements IRecordHandler {
@@ -50,16 +51,27 @@ public class LoincPartHandler implements IRecordHandler {
 		String partTypeName = trim(theRecord.get("PartTypeName"));
 		String partName = trim(theRecord.get("PartName"));
 		String partDisplayName = trim(theRecord.get("PartDisplayName"));
-		String status = trim(theRecord.get("Status"));
 
-		if (!"ACTIVE".equals(status)) {
-			return;
+		// Per Dan's note, we include deprecated parts
+//		String status = trim(theRecord.get("Status"));
+//		if (!"ACTIVE".equals(status)) {
+//			return;
+//		}
+
+		TermConcept concept = myCode2Concept.get(partNumber);
+		if (concept == null) {
+			concept = new TermConcept(myCodeSystemVersion, partNumber);
+			concept.setDisplay(partName);
+			myCode2Concept.put(partNumber, concept);
+		}
+		
+		if (isNotBlank(partDisplayName)) {
+			concept.addDesignation()
+				.setConcept(concept)
+				.setUseDisplay("PartDisplayName")
+				.setValue(partDisplayName);
 		}
 
-		TermConcept concept = new TermConcept(myCodeSystemVersion, partNumber);
-		concept.setDisplay(partName);
-
-		myCode2Concept.put(partDisplayName, concept);
 	}
 
 }
