@@ -47,6 +47,7 @@ import ca.uhn.fhir.rest.server.method.BaseMethodBinding;
  * a large amount of the fhir api functionality using JAXRS
  *
  * @author Peter Van Houte | peter.vanhoute@agfa.com | Agfa Healthcare
+ * @author Olivier Stroesser
  */
 @SuppressWarnings("javadoc")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
