@@ -42,6 +42,7 @@ import ca.uhn.fhir.rest.server.interceptor.IServerInterceptor;
  * the IRestfulServerDefaults interface and exposes the uri and headers.
  *
  * @author Peter Van Houte | peter.vanhoute@agfa.com | Agfa Healthcare
+ * just a comment
  */
 public abstract class AbstractJaxRsProvider implements IRestfulServerDefaults {
 
